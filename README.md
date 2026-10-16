@@ -9,9 +9,15 @@
 
 # fresh-mac
 
-One script for a new Mac.
+One script for a new Mac. The idea comes from [Bram(us) Van Damme](https://www.bram.us/).
 
-Sets up Homebrew packages, git config, zsh dotfiles, a short list of macOS settings, and `/etc/synthetic.conf` firmlinks for `/sites` and `/projects`.
+It sets up:
+
+- Homebrew packages
+- git config
+- zsh dotfiles
+- a short list of macOS settings
+- `/etc/synthetic.conf` firmlinks for `/sites` and `/projects`
 
 ## Run
 
@@ -21,9 +27,22 @@ cd fresh-mac
 ./setup.sh
 ```
 
-The script asks four questions before it installs anything: your git name, git email, GPG fingerprint, and an email to show on the lock screen if the Mac is lost. Those answers stay on this Mac, in `~/.config/fresh-mac/gitconfig` and in local preferences. They are not written into this repo.
+### Questions
 
-After that, it asks for your password once. If it stops partway, run it again. It continues at the next unfinished step and keeps the answers it already saved. When macOS settings or `synthetic.conf` change, it offers a reboot. The `/sites` and `/projects` firmlinks show up only after that reboot.
+The script asks four questions before it installs anything:
+
+- your git name
+- your git email
+- your GPG fingerprint
+- an email to show on the lock screen if the Mac is lost
+
+Those answers stay on this Mac, in `~/.config/fresh-mac/gitconfig` and in local preferences. They are not written into this repo.
+
+After that, it asks for your password once. If it stops partway, run it again. It continues at the next unfinished step and keeps the answers it already saved.
+
+When macOS settings or `synthetic.conf` change, it offers a reboot. The `/sites` and `/projects` firmlinks show up only after that reboot.
+
+### Dry run
 
 Preview every step without installing or writing anything:
 
@@ -31,9 +50,16 @@ Preview every step without installing or writing anything:
 ./setup.sh --dry-run
 ```
 
-A real run uses the same lines. `ok` is already set, `set` was just changed, `would` is what a dry run would change, and `skip` is a step that already finished.
+### Status lines
 
-Start over:
+A real run uses the same lines:
+
+- `ok` is already set
+- `set` was just changed
+- `would` is what a dry run would change
+- `skip` is a step that already finished
+
+### Start over
 
 ```bash
 ./setup.sh --force
@@ -43,11 +69,50 @@ Existing dotfiles are moved aside to `*.bak` before they are replaced with symli
 
 ## What it installs
 
-Formulae: Git, GitHub CLI, Antidote, nvm, zsh completions, DDEV.
+### Formulae
 
-Casks: OrbStack, Cursor, iTerm, Raycast, Chrome, Slack, Figma, TablePlus, 1Password, 1Password CLI, Dropbox, VLC, Setapp, Fantastical, TextMate, Grammarly Desktop, Affinity, Arc, Firefox, Obsidian, Zwift, Sequel Ace.
+- Git
+- GitHub CLI
+- Antidote
+- nvm
+- zsh completions
+- DDEV
 
-The shell loads a few Oh My Zsh plugins (`git`, `brew`), syntax highlighting, history substring search, and the Cobalt2 prompt through Antidote. Cobalt2 expects a Powerline-patched font in iTerm.
+### Casks
+
+- OrbStack
+- Cursor
+- iTerm
+- Raycast
+- Chrome
+- Slack
+- Figma
+- TablePlus
+- 1Password
+- 1Password CLI
+- Dropbox
+- VLC
+- Setapp
+- Fantastical
+- TextMate
+- Grammarly Desktop
+- Affinity
+- Arc
+- Firefox
+- Obsidian
+- Zwift
+- Sequel Ace
+
+### Shell
+
+The shell loads these through Antidote:
+
+- Oh My Zsh plugins `git` and `brew`
+- syntax highlighting
+- history substring search
+- the Cobalt2 prompt
+
+Cobalt2 expects a Powerline-patched font in iTerm.
 
 ## Afterward
 
@@ -55,3 +120,7 @@ The shell loads a few Oh My Zsh plugins (`git`, `brew`), syntax highlighting, hi
 - Install Xcode from the App Store if a project needs it. The script only installs the Command Line Tools.
 - Install a Node version the first time you need it: `nvm install --lts`.
 - If an old `~/.zshenv` pins a Node version on `PATH`, remove that line so the lazy nvm setup is the one that runs.
+
+## Licence
+
+[MIT](LICENSE)
