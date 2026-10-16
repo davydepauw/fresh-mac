@@ -1,0 +1,8 @@
+# Oh My Zsh's lib has to load before its plugins.
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/brew
+zsh-users/zsh-history-substring-search path:zsh-history-substring-search.zsh
+wesbos/Cobalt2-iterm path:cobalt2.zsh-theme
+zsh-users/zsh-syntax-highlighting path:zsh-syntax-highlighting.zsh

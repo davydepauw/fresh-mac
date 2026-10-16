@@ -1,0 +1,26 @@
+# Name, email, and signing key are written here by setup.sh. Not in this repo.
+[include]
+	path = ~/.config/fresh-mac/gitconfig
+
+[init]
+	defaultBranch = main
+
+[push]
+	default = current
+	followTags = true
+	autoSetupRemote = true
+
+[core]
+	editor = nano
+	excludesfile = ~/.gitignore
+
+[alias]
+	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	s = status -s
+	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	please = push --force-with-lease
+	branches = branch -a
+	amend = commit --amend --reuse-message=HEAD
+	tags = tag -l
+	remotes = remote -v
+

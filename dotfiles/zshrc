@@ -1,0 +1,61 @@
+# Homebrew, when this shell did not go through .zprofile
+if ! command -v brew >/dev/null 2>&1; then
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+antidote_zsh="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/antidote/share/antidote/antidote.zsh"
+if [[ -r "$antidote_zsh" ]]; then
+  source "$antidote_zsh"
+  antidote load "${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
+fi
+
+if command -v brew >/dev/null 2>&1; then
+  FPATH="$(brew --prefix)/share/zsh-completions:${FPATH:-}"
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH:-}"
+  autoload -Uz compinit
+  compinit
+fi
+
+if (( ${+widgets[history-substring-search-up]} )); then
+  zmodload zsh/terminfo
+  [[ -n "${terminfo[kcuu1]:-}" ]] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
+  [[ -n "${terminfo[kcud1]:-}" ]] && bindkey "${terminfo[kcud1]}" history-substring-search-down
+fi
+
+export NVM_DIR="${HOME}/.nvm"
+
+load_nvm() {
+  unset -f load_nvm nvm node npm npx
+  mkdir -p "$NVM_DIR"
+  local nvm_script="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"
+  if [[ -s "$nvm_script" ]]; then
+    source "$nvm_script"
+  fi
+}
+
+nvm() {
+  load_nvm
+  nvm "$@"
+}
+
+node() {
+  load_nvm
+  node "$@"
+}
+
+npm() {
+  load_nvm
+  npm "$@"
+}
+
+npx() {
+  load_nvm
+  npx "$@"
+}
+
+[[ -r "${HOME}/.aliases" ]] && source "${HOME}/.aliases"
+[[ -r "${HOME}/.functions" ]] && source "${HOME}/.functions"
